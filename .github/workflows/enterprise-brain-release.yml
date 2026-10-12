@@ -44,7 +44,9 @@ jobs:
 
       - name: Test the user limits
         working-directory: server
+        # The workspace file makes the server build against the local server/public module (as make does).
         run: |
+          make setup-go-work
           go test ./channels/app -run 'TestGetServerLimits$|TestIsAtUserLimit$|TestExtraUsersBehavior$' -count=1
           go test ./channels/api4 -run 'TestGetServerLimits$' -count=1
 
