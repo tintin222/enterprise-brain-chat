@@ -287,6 +287,29 @@ export default class LicenseSettings extends React.PureComponent<Props, State> {
     render() {
         const {license, upgradedFromTE, isDisabled} = this.props;
 
+        // Enterprise Brain: this build needs no licence and cannot be upgraded to Enterprise Edition, so the page
+        // shows only what the server runs, without trial or upgrade offers.
+        if (!this.props.enterpriseReady) {
+            return (
+                <div className='wrapper--fixed'>
+                    <AdminHeader>
+                        <FormattedMessage {...messages.title}/>
+                    </AdminHeader>
+                    <div className='admin-console__wrapper'>
+                        <div className='admin-console__content'>
+                            <div className='top-wrapper'>
+                                <div className='left-panel'>
+                                    <div className='panel-card'>
+                                        <TeamEditionLeftPanel openEELicenseModal={this.openEELicenseModal}/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
         let leftPanel = null;
         let rightPanel = null;
 

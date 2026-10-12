@@ -6829,4 +6829,15 @@ const AdminDefinition: AdminDefinitionType = {
     },
 };
 
+// Enterprise Brain: this build cannot be upgraded to Mattermost Enterprise Edition, so the pages that only advertise
+// its features (and offer trials) are hidden on servers that are not enterprise-ready.
+for (const section of Object.values(AdminDefinition)) {
+    for (const item of Object.values(section.subsections)) {
+        if (item.isDiscovery) {
+            const original = item.isHidden;
+            item.isHidden = original ? it.any(original, it.not(it.enterpriseReady)) : it.not(it.enterpriseReady);
+        }
+    }
+}
+
 export default AdminDefinition;

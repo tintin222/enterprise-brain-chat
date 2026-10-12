@@ -69,7 +69,9 @@ const ShowStartTrialModal = () => {
         const now = new Date().getTime();
         const hasEnvMoreThan6Hours = now > installationDatePlus6Hours;
         const hasEnvMoreThan10Users = Number(totalUsers) > userThreshold;
-        if (isUserAdmin && !isBenefitsModalOpened && hasEnvMoreThan10Users && hasEnvMoreThan6Hours && !hadAdminDismissedModal && !isLicensedOrPreviousLicensed) {
+        // Enterprise Brain: no trial prompt on a build that cannot run Enterprise Edition.
+        const isEnterpriseReady = config.BuildEnterpriseReady === TRUE;
+        if (isEnterpriseReady && isUserAdmin && !isBenefitsModalOpened && hasEnvMoreThan10Users && hasEnvMoreThan6Hours && !hadAdminDismissedModal && !isLicensedOrPreviousLicensed) {
             openStartTrialFormModal(handleOnClose);
         }
     }, [totalUsers]);

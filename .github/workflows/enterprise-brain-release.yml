@@ -49,13 +49,13 @@ jobs:
           cache: npm
           cache-dependency-path: webapp/package-lock.json
 
-      - name: Test the user limits
+      - name: Test the user limits and the blocked upgrade
         working-directory: server
         # The workspace file makes the server build against the local server/public module (as make does).
         run: |
           make setup-go-work
           go test ./channels/app -run 'TestGetServerLimits$|TestIsAtUserLimit$|TestExtraUsersBehavior$' -count=1
-          go test ./channels/api4 -run 'TestGetServerLimits$' -count=1
+          go test ./channels/api4 -run 'TestGetServerLimits$|TestUpgradeToEnterpriseNotOffered$' -count=1
 
       - name: Build the server
         working-directory: server
