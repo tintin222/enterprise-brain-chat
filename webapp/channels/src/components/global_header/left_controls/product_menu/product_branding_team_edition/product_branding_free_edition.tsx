@@ -44,11 +44,10 @@ const Badge = styled.span`
 const ProductBrandingFreeEdition = (): JSX.Element => {
     const license = useSelector(getLicense);
 
+    // Enterprise Brain: no edition badge on unlicensed servers.
     let badgeText = '';
     if (license?.SkuShortName === LicenseSkus.Entry) {
         badgeText = 'ENTRY EDITION';
-    } else if (license?.IsLicensed === 'false') {
-        badgeText = 'TEAM EDITION';
     }
 
     return (
@@ -57,7 +56,7 @@ const ProductBrandingFreeEdition = (): JSX.Element => {
                 width={116}
                 height={20}
             />
-            <Badge>{badgeText}</Badge>
+            {badgeText && <Badge>{badgeText}</Badge>}
         </ProductBrandingFreeEditionContainer>
     );
 };

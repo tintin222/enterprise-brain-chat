@@ -102,13 +102,13 @@ export default function AboutBuildModal(props: Props) {
         <div>
             <FormattedMessage
                 id='about.teamEditionLearn'
-                defaultMessage='Join the Mattermost community at '
+                defaultMessage='Built on Mattermost. Source code (AGPL v3): '
             />
             <ExternalLink
                 location='about_build_modal'
-                href='https://mattermost.com/community/'
+                href='https://github.com/tintin222/enterprise-brain-chat'
             >
-                {'mattermost.com/community/'}
+                {'github.com/tintin222/enterprise-brain-chat'}
             </ExternalLink>
         </div>
     );

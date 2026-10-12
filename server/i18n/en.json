@@ -865,7 +865,7 @@
   },
   {
     "id": "api.command.invite_people.desc",
-    "translation": "Send an email invite to your Mattermost team"
+    "translation": "Send an email invite to your Enterprise Brain team"
   },
   {
     "id": "api.command.invite_people.email_invitations_off",
@@ -1220,7 +1220,7 @@
   },
   {
     "id": "api.command_help.desc",
-    "translation": "Show Mattermost help message"
+    "translation": "Show Enterprise Brain help message"
   },
   {
     "id": "api.command_help.name",
@@ -1228,7 +1228,7 @@
   },
   {
     "id": "api.command_help.success",
-    "translation": "Mattermost is an open source platform for secure communication, collaboration, and orchestration of work across tools and teams.\r\nMattermost contains two key tools:\r\n\r\n**Channels** - Stay connected with your team via 1:1 and group messaging.\r\n**[Playbooks](/playbooks)** - Build and configure repeatable processes to achieve specific and predictable outcomes.\r\n\r\n[View documentation and guides]({{.HelpLink}})"
+    "translation": "Enterprise Brain is built on Mattermost, an open source platform for secure communication, collaboration, and orchestration of work across tools and teams.\r\nMattermost contains two key tools:\r\n\r\n**Channels** - Stay connected with your team via 1:1 and group messaging.\r\n**[Playbooks](/playbooks)** - Build and configure repeatable processes to achieve specific and predictable outcomes.\r\n\r\n[View documentation and guides]({{.HelpLink}})"
   },
   {
     "id": "api.command_invite.channel.app_error",
@@ -1351,7 +1351,7 @@
   },
   {
     "id": "api.command_logout.desc",
-    "translation": "Logout of Mattermost"
+    "translation": "Logout of Enterprise Brain"
   },
   {
     "id": "api.command_logout.name",
@@ -2235,7 +2235,7 @@
   },
   {
     "id": "api.email_batching.send_batched_email_notification.button",
-    "translation": "Open Mattermost"
+    "translation": "Open Enterprise Brain"
   },
   {
     "id": "api.email_batching.send_batched_email_notification.messageButton",
@@ -4228,7 +4228,7 @@
   },
   {
     "id": "api.templates.email_footer_v2",
-    "translation": "© 2015 - {{ .CurrentYear }} Mattermost, Inc. 2100 Geng Road, Suite 210, Palo Alto, CA, 94303"
+    "translation": "© {{ .CurrentYear }} Enterprise Brain"
   },
   {
     "id": "api.templates.email_info1",
@@ -4256,7 +4256,7 @@
   },
   {
     "id": "api.templates.guest_magic_link_body.footer.info",
-    "translation": "This email was sent to you because someone requested a login link for Mattermost. If you did not request this, you can safely ignore this email."
+    "translation": "This email was sent to you because someone requested a login link for Enterprise Brain. If you did not request this, you can safely ignore this email."
   },
   {
     "id": "api.templates.guest_magic_link_body.footer.title",
@@ -4268,7 +4268,7 @@
   },
   {
     "id": "api.templates.guest_magic_link_body.title",
-    "translation": "Sign in to Mattermost"
+    "translation": "Sign in to Enterprise Brain"
   },
   {
     "id": "api.templates.guest_magic_link_subject",
@@ -4280,7 +4280,7 @@
   },
   {
     "id": "api.templates.invite_body.subTitle",
-    "translation": "Start collaborating with your team on Mattermost"
+    "translation": "Start collaborating with your team on Enterprise Brain"
   },
   {
     "id": "api.templates.invite_body.title",
@@ -4292,7 +4292,7 @@
   },
   {
     "id": "api.templates.invite_body_footer.info",
-    "translation": "Mattermost is a flexible, open source messaging platform that enables secure team collaboration."
+    "translation": "Enterprise Brain is team chat with AI agents that know your company, built on the open source Mattermost platform."
   },
   {
     "id": "api.templates.invite_body_footer.learn_more",
@@ -4300,7 +4300,7 @@
   },
   {
     "id": "api.templates.invite_body_footer.title",
-    "translation": "What is Mattermost?"
+    "translation": "What is Enterprise Brain?"
   },
   {
     "id": "api.templates.invite_body_guest.subTitle",
@@ -4424,7 +4424,7 @@
   },
   {
     "id": "api.templates.post_body.button",
-    "translation": "Reply in Mattermost"
+    "translation": "Reply in Enterprise Brain"
   },
   {
     "id": "api.templates.questions_footer.info",
@@ -4528,7 +4528,7 @@
   },
   {
     "id": "api.templates.verify_body.info",
-    "translation": "This email address was used to create an account with Mattermost."
+    "translation": "This email address was used to create an account with Enterprise Brain."
   },
   {
     "id": "api.templates.verify_body.info1",
@@ -4572,7 +4572,7 @@
   },
   {
     "id": "api.templates.welcome_body.info",
-    "translation": "This email address was used to create an account with Mattermost."
+    "translation": "This email address was used to create an account with Enterprise Brain."
   },
   {
     "id": "api.templates.welcome_body.info1",
@@ -7850,7 +7850,7 @@
   },
   {
     "id": "app.notification.footer.infoLogin",
-    "translation": "Login to Mattermost"
+    "translation": "Login to Enterprise Brain"
   },
   {
     "id": "app.notification.footer.title",
@@ -14128,11 +14128,11 @@
   },
   {
     "id": "web.error.unsupported_browser.no_longer_support",
-    "translation": "This browser is no longer supported by Mattermost"
+    "translation": "This browser is no longer supported by Enterprise Brain"
   },
   {
     "id": "web.error.unsupported_browser.no_longer_support_version",
-    "translation": "This version of your browser is no longer supported by Mattermost"
+    "translation": "This version of your browser is no longer supported by Enterprise Brain"
   },
   {
     "id": "web.error.unsupported_browser.open_system_browser.edge",
