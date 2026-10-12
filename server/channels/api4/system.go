@@ -66,9 +66,11 @@ func (api *API) InitSystem() {
 	api.BaseRoutes.APIRoot.Handle("/server_busy", api.APISessionRequired(setServerBusy)).Methods(http.MethodPost)
 	api.BaseRoutes.APIRoot.Handle("/server_busy", api.APISessionRequired(getServerBusyExpires)).Methods(http.MethodGet)
 	api.BaseRoutes.APIRoot.Handle("/server_busy", api.APISessionRequired(clearServerBusy)).Methods(http.MethodDelete)
-	api.BaseRoutes.APIRoot.Handle("/upgrade_to_enterprise", api.APISessionRequired(upgradeToEnterprise)).Methods(http.MethodPost)
+	// Enterprise Brain: upgrading would replace this build (its branding and its lack of a user limit) with
+	// Mattermost's Enterprise Edition binary, so neither the upgrade nor the check that offers it is available.
+	api.BaseRoutes.APIRoot.Handle("/upgrade_to_enterprise", api.APISessionRequired(upgradeToEnterpriseNotOffered)).Methods(http.MethodPost)
 	api.BaseRoutes.APIRoot.Handle("/upgrade_to_enterprise/status", api.APISessionRequired(upgradeToEnterpriseStatus)).Methods(http.MethodGet)
-	api.BaseRoutes.APIRoot.Handle("/upgrade_to_enterprise/allowed", api.APISessionRequired(isAllowedToUpgradeToEnterprise)).Methods(http.MethodGet)
+	api.BaseRoutes.APIRoot.Handle("/upgrade_to_enterprise/allowed", api.APISessionRequired(upgradeToEnterpriseNotOffered)).Methods(http.MethodGet)
 	api.BaseRoutes.APIRoot.Handle("/restart", api.APISessionRequired(restart)).Methods(http.MethodPost)
 	api.BaseRoutes.System.Handle("/notices/{team_id:[A-Za-z0-9]+}", api.APISessionRequired(getProductNotices)).Methods(http.MethodGet)
 	api.BaseRoutes.System.Handle("/notices/view", api.APISessionRequired(updateViewedProductNotices)).Methods(http.MethodPut)
@@ -838,6 +840,15 @@ func getServerBusyExpires(c *Context, w http.ResponseWriter, r *http.Request) {
 	if _, err := w.Write(sbsJSON); err != nil {
 		c.Logger.Warn("Error while writing response", mlog.Err(err))
 	}
+}
+
+// upgradeToEnterpriseNotOffered answers the upgrade endpoints of this build (Enterprise Brain).
+func upgradeToEnterpriseNotOffered(c *Context, w http.ResponseWriter, r *http.Request) {
+	if !c.App.SessionHasPermissionTo(*c.AppContext.Session(), model.PermissionManageSystem) {
+		c.SetPermissionError(model.PermissionManageSystem)
+		return
+	}
+	c.Err = model.NewAppError("upgradeToEnterprise", "api.upgrade_to_enterprise.enterprise_brain.app_error", nil, "", http.StatusNotImplemented)
 }
 
 func upgradeToEnterprise(c *Context, w http.ResponseWriter, r *http.Request) {

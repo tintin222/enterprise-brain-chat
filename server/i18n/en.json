@@ -4371,6 +4371,10 @@
     "translation": "An upgrade to Mattermost Enterprise Edition is already running."
   },
   {
+    "id": "api.upgrade_to_enterprise.enterprise_brain.app_error",
+    "translation": "This server runs Enterprise Brain chat, which cannot be upgraded to Mattermost Enterprise Edition."
+  },
+  {
     "id": "api.upgrade_to_enterprise.generic_error.app_error",
     "translation": "Mattermost was unable to upgrade to Enterprise Edition."
   },
