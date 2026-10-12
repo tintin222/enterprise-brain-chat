@@ -44,7 +44,8 @@ jobs:
           cache-dependency-path: server/go.sum
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
-          node-version: 24
+          # Upstream's own Node version; newer npm releases reject upstream's lockfile.
+          node-version-file: .nvmrc
           cache: npm
           cache-dependency-path: webapp/package-lock.json
 
@@ -62,8 +63,10 @@ jobs:
 
       - name: Build the web app
         working-directory: webapp
+        env:
+          CI: "true"
         run: |
-          npm ci
+          make node_modules
           make dist
 
       - name: Package
