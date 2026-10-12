@@ -1,0 +1,76 @@
+# Enterprise Brain: build the server (linux/amd64) and the web app from this branch, run the user-limit tests,
+# and publish them as a GitHub release with SHA-512 checksums. The enterprise-brain repository's image takes the
+# server binary and web app from the release, pinned by those checksums. Upstream Mattermost's workflows are
+# removed on this branch, so pushes here run nothing else.
+name: Enterprise Brain release
+
+on:
+  workflow_dispatch:
+    inputs:
+      release:
+        description: Release tag to create, for example eb-v11.7.12-1
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    services:
+      postgres:
+        image: postgres:16.10@sha256:21f6013073bc6b92830a2129570e2f5ec42a6c734b5a985a41e83aa58f54c3c1
+        env:
+          POSTGRES_USER: mmuser
+          POSTGRES_PASSWORD: mostest
+          POSTGRES_DB: mattermost_test
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U mmuser -d mattermost_test" --health-interval 5s --health-timeout 5s --health-retries 20
+    env:
+      TEST_DATABASE_POSTGRESQL_DSN: postgres://mmuser:mostest@localhost:5432/mattermost_test?sslmode=disable&connect_timeout=10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        with:
+          go-version-file: server/go.mod
+          cache-dependency-path: server/go.sum
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: webapp/package-lock.json
+
+      - name: Test the user limits
+        working-directory: server
+        run: |
+          go test ./channels/app -run 'TestGetServerLimits$|TestIsAtUserLimit$|TestExtraUsersBehavior$' -count=1
+          go test ./channels/api4 -run 'TestGetServerLimits$' -count=1
+
+      - name: Build the server
+        working-directory: server
+        run: make build-linux-amd64 BUILD_NUMBER=${{ inputs.release }}
+
+      - name: Build the web app
+        working-directory: webapp
+        run: |
+          npm ci
+          make dist
+
+      - name: Package
+        run: |
+          mkdir -p out
+          cp server/bin/mattermost out/enterprise-brain-chat-server-linux-amd64
+          tar -C webapp/channels/dist -czf out/enterprise-brain-chat-client.tar.gz .
+          tar -C server -czf out/enterprise-brain-chat-i18n.tar.gz i18n
+          cd out && sha512sum * > SHA512SUMS && cat SHA512SUMS
+
+      - name: Publish the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${{ inputs.release }}" out/* \
+            --target "${{ github.sha }}" \
+            --title "Enterprise Brain chat ${{ inputs.release }}" \
+            --notes "Built from ${{ github.sha }} on ${{ github.ref_name }}: Mattermost 11.7.12 without the user limit and with Enterprise Brain branding. Source: this repository at that commit (AGPL v3)."

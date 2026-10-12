@@ -1,3 +1,19 @@
+# Enterprise Brain chat
+
+The chat server of [Enterprise Brain](https://github.com/tintin222/enterprise-brain-chat): a thin fork of [Mattermost](https://github.com/mattermost/mattermost) 11.7.12. Our services talk to it only through its public APIs; everything else about Enterprise Brain lives in separate repositories.
+
+Changes from upstream, all on the branch `enterprise-brain/v11.7.12`:
+
+- **No user limit.** Unlicensed servers have no seat limit (`server/channels/app/limits.go`, with its tests).
+- **Enterprise Brain branding.** Name and logo in the web app (login page, header, browser icons, About dialog, page title) and in user-facing English strings of the web app and the server (emails, slash command help). "Mattermost" remains where text refers to Mattermost's own software, company or licensing (System Console, desktop and mobile apps, plugins).
+- **Release workflow.** Upstream's CI workflows are removed on this branch; `.github/workflows/enterprise-brain-release.yml` runs the user-limit tests, builds the linux/amd64 server and the web app, and publishes them as a GitHub release with SHA-512 checksums.
+
+License: as Mattermost's, in `LICENSE.txt`. The server source is under the GNU AGPL v3, so this repository is public and offers the complete source of what we run; the web app and `server/public` are Apache-2.0. Mattermost is a trademark of Mattermost, Inc.; this fork does not use it as its own brand.
+
+The original Mattermost README follows.
+
+---
+
 # [![Mattermost logo](https://user-images.githubusercontent.com/7205829/137170381-fe86eef0-bccc-4fdd-8e92-b258884ebdd7.png)](https://mattermost.com)
 
 [Mattermost](https://mattermost.com) is an open core, self-hosted collaboration platform that offers chat, workflow automation, voice calling, screen sharing, and AI integration. This repo is the primary source for core development on the Mattermost platform; it's written in Go and React, runs as a single Linux binary, and relies on PostgreSQL. A new compiled version is released under an MIT license every month on the 16th.

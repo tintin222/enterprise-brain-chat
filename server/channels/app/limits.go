@@ -9,9 +9,11 @@ import (
 	"github.com/mattermost/mattermost/server/public/model"
 )
 
+// Enterprise Brain: unlicensed servers have no user limit. Zero disables the hard-coded limits below
+// (GetServerLimits only applies them when maxUsersLimit > 0, and isAtUserLimit treats a zero hard limit as none).
 const (
-	maxUsersLimit     = 200
-	maxUsersHardLimit = 250
+	maxUsersLimit     = 0
+	maxUsersHardLimit = 0
 )
 
 // GetServerLimits returns the server's seat/post-history limits. The license-derived

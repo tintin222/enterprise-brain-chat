@@ -24,17 +24,13 @@ const Header = ({alternateLink, backButtonURL, onBackButtonClick}: HeaderProps) 
     const {SiteName} = useSelector(getConfig);
     const license = useSelector(getLicense);
 
-    const ariaLabel = SiteName || 'Mattermost';
+    const ariaLabel = SiteName || 'Enterprise Brain';
 
-    let freeBanner = null;
-    if (license.IsLicensed === 'false') {
-        freeBanner = <><Logo/><span className='freeBadge'>{'TEAM EDITION'}</span></>;
-    } else if (license.SkuShortName === LicenseSkus.Entry) {
-        freeBanner = <><Logo/><span className='freeBadge'>{'ENTRY EDITION'}</span></>;
-    }
+    // Enterprise Brain: the logo carries the product name, without an edition badge.
+    const freeBanner = license.IsLicensed === 'false' || license.SkuShortName === LicenseSkus.Entry ? <Logo/> : null;
 
     let title: React.ReactNode = SiteName;
-    if (title === 'Mattermost') {
+    if (title === 'Mattermost' || title === 'Enterprise Brain') {
         if (freeBanner) {
             title = '';
         } else {

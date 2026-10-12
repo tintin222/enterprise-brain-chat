@@ -26,8 +26,16 @@ const Footer = () => {
                 key='footer-copyright'
                 className='footer-copyright'
             >
-                {`© ${new Date().getFullYear()} Mattermost Inc.`}
+                {`© ${new Date().getFullYear()} Enterprise Brain`}
             </span>
+            <ExternalLink
+                key='footer-link-source'
+                className='footer-link'
+                href='https://github.com/tintin222/enterprise-brain-chat'
+                location='footer'
+            >
+                {formatMessage({id: 'web.footer.source', defaultMessage: 'Source code'})}
+            </ExternalLink>
             {AboutLink && (
                 <ExternalLink
                     key='footer-link-about'
