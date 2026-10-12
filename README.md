@@ -1,12 +1,15 @@
 # Enterprise Brain chat
 
-The chat server of [Enterprise Brain](https://github.com/tintin222/enterprise-brain-chat): a thin fork of [Mattermost](https://github.com/mattermost/mattermost) 11.7.12. Our services talk to it only through its public APIs; everything else about Enterprise Brain lives in separate repositories.
+The chat server of [Enterprise Brain](https://github.com/tintin222/enterprise-brain-chat): a thin fork of [Mattermost](https://github.com/mattermost/mattermost) 11.11.1. Our services talk to it only through its public APIs; everything else about Enterprise Brain lives in separate repositories.
 
-Changes from upstream, all on the branch `enterprise-brain/v11.7.12`:
+Changes from upstream, all on the branch `enterprise-brain/v11.11.1` (earlier: `enterprise-brain/v11.7.12`):
 
 - **No user limit.** Unlicensed servers have no seat limit (`server/channels/app/limits.go`, with its tests).
 - **Enterprise Brain branding.** Name and logo in the web app (login page, header, browser icons, About dialog, page title) and in user-facing English strings of the web app and the server (emails, slash command help). "Mattermost" remains where text refers to Mattermost's own software, company or licensing (System Console, desktop and mobile apps, plugins).
+- **No Enterprise upgrade or trial offers.** The Edition and License page describes this build; System Console pages that only advertise Enterprise features are hidden; the server refuses the upgrade endpoint, which would replace this build with Mattermost's Enterprise binary.
 - **Release workflow.** Upstream's CI workflows are removed on this branch; `.github/workflows/enterprise-brain-release.yml` runs the user-limit tests, builds the linux/amd64 server and the web app, and publishes them as a GitHub release with SHA-512 checksums.
+
+Moving to a new Mattermost release: create `enterprise-brain/v<version>` from the upstream tag, cherry-pick this branch's commits (dropping upstream's workflows again), restore upstream's `webapp/channels/src/i18n/en.json` and `server/i18n/en.json`, run `python3 enterprise-brain/rebrand_strings.py`, and run the release workflow.
 
 License: as Mattermost's, in `LICENSE.txt`. The server source is under the GNU AGPL v3, so this repository is public and offers the complete source of what we run; the web app and `server/public` are Apache-2.0. Mattermost is a trademark of Mattermost, Inc.; this fork does not use it as its own brand.
 
